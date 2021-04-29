@@ -31,7 +31,7 @@ private final DataSource  dataSource;
                 return names;
             }
             catch (SQLException se) {
-                throw new IllegalStateException("Cannot select employees", se);
+                throw new IllegalStateException("Cannot select breed", se);
             }
     }
 }

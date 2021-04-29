@@ -1,5 +1,5 @@
 package hu.nive.ujratervezes.kepesitovizsga.army;
-
+/*
 public class Archer extends MilitaryUnit {
 
    private static final int HIT_POINTS= 50;
@@ -24,3 +24,4 @@ public class Archer extends MilitaryUnit {
     }
 
     }
+*/

@@ -1,5 +1,5 @@
 package hu.nive.ujratervezes.kepesitovizsga.army;
-
+/*
 public class HeavyCavalry extends MilitaryUnit {
 
 
@@ -22,3 +22,4 @@ public class HeavyCavalry extends MilitaryUnit {
         return 0;
     }
 }
+*/
