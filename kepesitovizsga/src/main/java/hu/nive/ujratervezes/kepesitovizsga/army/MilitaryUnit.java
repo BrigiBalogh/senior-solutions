@@ -1,5 +1,5 @@
 package hu.nive.ujratervezes.kepesitovizsga.army;
-
+/*
 public abstract class  MilitaryUnit {
 
     private int hitPoints;
@@ -16,6 +16,9 @@ public abstract class  MilitaryUnit {
         return damage;
     }
     public  void sufferDamage(int damage){
+        if(armor) {
+           hitPoints - (damage / 2);
+        }
 
     }
 
@@ -31,3 +34,4 @@ public abstract class  MilitaryUnit {
         return armor;
     }
 }
+*/

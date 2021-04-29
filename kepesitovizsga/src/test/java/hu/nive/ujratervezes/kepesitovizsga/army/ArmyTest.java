@@ -1,5 +1,5 @@
 package hu.nive.ujratervezes.kepesitovizsga.army;
-/*
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -60,4 +60,4 @@ class ArmyTest {
         assertEquals(0, army.getArmySize());
     }
 
-}*/
+}

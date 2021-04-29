@@ -1,5 +1,5 @@
 package hu.nive.ujratervezes.kepesitovizsga.jurassic;
-/*
+
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,4 +39,4 @@ class JurassicParkTest {
     }
 
 
-}*/
+}
