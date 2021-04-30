@@ -22,7 +22,7 @@ private final DataSource  dataSource;
 
             try (Connection conn = dataSource.getConnection();
                  Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery("select 'breed' from 'dinosaur'  where 'actual' > 'expected'  order by'breed' ")
+                 ResultSet rs = stmt.executeQuery("select breed from dinosaur  where actual > expected  order by breed")
             ) {
                 while (rs.next()) {
                     String name = rs.getString("breed");

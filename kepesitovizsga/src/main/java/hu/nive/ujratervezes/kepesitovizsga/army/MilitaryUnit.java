@@ -15,6 +15,8 @@ public abstract class  MilitaryUnit {
     public  int doDamage() {
         return damage;
     }
+
+
     public  void sufferDamage(int damage){
            hitPoints -= damage / (armor ? 2 : 1);
 

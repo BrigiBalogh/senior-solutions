@@ -1,5 +1,5 @@
 package hu.nive.ujratervezes.kepesitovizsga.army;
-/*
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,11 +29,12 @@ public class Army {
         Iterator<MilitaryUnit> it = militaryUnits.iterator();
         while (it.hasNext()) {
             MilitaryUnit unit = it.next();
-            int hitPoints = unit.getHitPoints() - damage;
+            unit.sufferDamage(damage);
+            int hitPoints = unit.getHitPoints();
 
             if (hitPoints < 25) {
                 it.remove();
             }
         }
     }
-}*/
+}

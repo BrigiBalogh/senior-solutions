@@ -9,7 +9,7 @@ public class AddDigits {
         int sum = 0;
         for (char c : input.toCharArray()) {
             if(Character.isDigit(c)) {
-               int digit = Character.getNumericValue(c) ;
+               int digit = Integer.parseInt(String.valueOf(c));//c - '0';//Character.getNumericValue(c) ;
                 sum += digit;
             }
         }
