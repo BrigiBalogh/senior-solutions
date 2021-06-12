@@ -21,18 +21,21 @@ class LocationTest {
 
         // when: a tesztelendő metódus meghívása
         Location location = locationParser.parse("Budapest,47.497912,19.040235");
+        Location city = locationParser.parse("Budapest,47.497912,19.040235");
 
         // then: ellenőrzés
         assertEquals("Budapest", location.getName());
         assertEquals(47.497912, location.getLat(),0.005);
         assertEquals(19.040235, location.getLon(), 0.005);
+        assertSame(location,city);
 
     }
 
     @Test
     void isOnEquator() {
         assertAll("lat",
-                () -> assertTrue(locationParser.parse("Quito,0,-78.5").isOnEquator()));
+                () -> assertTrue(locationParser.parse("Quito,0,-78.5").isOnEquator()),
+                () -> assertFalse(locationParser.parse("Budapest,47.497912,19.040235").isOnEquator()));
 
     }
 
