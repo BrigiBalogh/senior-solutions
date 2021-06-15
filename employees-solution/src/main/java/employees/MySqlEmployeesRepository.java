@@ -12,7 +12,7 @@ public class MySqlEmployeesRepository implements EmployeesRepository {
     private JdbcTemplate jdbcTemplate;
 
     public MySqlEmployeesRepository()  {
-        try{
+        //try{
             MysqlDataSource dataSource;
           dataSource = new MysqlDataSource();
           dataSource.setUrl("jdbc:mysql://localhost:3306/employees?useUnicode=true");
@@ -25,9 +25,9 @@ public class MySqlEmployeesRepository implements EmployeesRepository {
             flyway.migrate();
             jdbcTemplate = new JdbcTemplate(dataSource);
 
-      } catch (SQLException se) {
-          throw new IllegalStateException("Cannot create datasource", se);
-      }
+      //} catch (SQLException se) {
+     //     throw new IllegalStateException("Cannot create datasource", se);
+     // }
 
     }
 

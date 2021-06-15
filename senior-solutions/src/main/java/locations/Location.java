@@ -7,8 +7,8 @@ public class Location {
     private double lon;
 
     public Location(String name, double lat, double lon) {
-        if((lat < -90 && lat > 90) || lon < -180 &&  lon >180) {
-            throw new IllegalArgumentException("Invalid date !");
+        if((lat < -90 || lat > 90) || lon < -180 ||  lon >180) {
+            throw new IllegalArgumentException("Invalid location!");
         }
         this.name = name;
         this.lat = lat;
@@ -29,6 +29,10 @@ public class Location {
         return false;
     }
 
+    public double distanceFrom(Location other) {
+        return distanceFrom(this.lat, other.lat, this.lon, other.lon);
+    }
+
     public static double distanceFrom(double lat1, double lat2, double lon1,
                                   double lon2) {
 
@@ -40,13 +44,9 @@ public class Location {
                 + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c * 1000; // convert to meters
+        double distance = R * c ;
 
-
-
-        distance = Math.pow(distance, 2);
-
-        return Math.sqrt(distance);
+        return distance;
     }
 
     public String getName() {
@@ -71,5 +71,14 @@ public class Location {
 
     public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "name='" + name + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                '}';
     }
 }
