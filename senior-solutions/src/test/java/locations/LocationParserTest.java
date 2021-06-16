@@ -1,11 +1,14 @@
 package locations;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.RepetitionInfo;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class LocationTest {
 
@@ -71,10 +74,40 @@ class LocationTest {
 
     private Object[][] values = {
             {new Location("Budapest",47.497912,-19.040235), false},
+            {new Location("London",51.5,0), false},
             {new Location("Quito",0,-78.5), true}
     };
-    @RepeatedTest(2)
+    @RepeatedTest(3)
     public void isOnEquatorTest2(RepetitionInfo repetitionInfo) {
         int index = repetitionInfo.getCurrentRepetition()-1;
+        Location location = new Location("Quito",0,-78.5);
+        assertEquals(values[index][1], location.isOnEquator());
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("createLocation")
+    void testIsOnPrimeMeridianWithMethodSource(double lat, double lon) {
+        Location location = new Location("London",51.5,0);
+        assertEquals(lon,location.isOnPrimeMeridian());
+    }
+
+    static Stream<Arguments>createLocation() {
+        return Stream.of(
+                arguments(51.5,0,47.497912,19.040235,1449000),
+                arguments(47,17,0,170,141685000),
+                arguments(47.497912,19.040235,0,-78.5,10611.89)
+        );
+    }
+
+    @TestFactory
+    Stream<DynamicTest> TestIsOnEquatorFavouriteSpace(){
+        return Stream
+                .of(new Location[][] {"Quito",0,-78.5}, {"Papua mellett", 0, 170})
+                 .map(locations -> DynamicTest.dynamicTest(
+                         "favouriteSpace" + locations[0] + "lat" + locations[1] +
+                                 "lon" + locations[2],
+                         assertEquals(locations[1], new Location("Quito",0,-78.5)
+                                 .getLat(locations[1]))));
     }
 }

@@ -43,6 +43,7 @@ public class LocationNestedTest {
 
         @BeforeEach
         void createFavouriteSpace() {
+
             Location location = new Location("Budapest", 47.497912, 19.040235);
         }
 

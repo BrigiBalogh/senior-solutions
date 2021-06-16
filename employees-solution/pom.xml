@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>training</groupId>
-    <artifactId>meetingrooms-solution</artifactId>
+    <artifactId>employees-solution</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

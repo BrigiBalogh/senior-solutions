@@ -32,12 +32,12 @@ public class LocationOperatorsTest {
 
     @Test
     public void testOnNorth() {
-        Location location1 = new Location("Bélbaltavár", 47, 17);
+        Location location1 = new Location("Bérbaltavár", 47, 17);
         Location location2 = new Location("Papua mellett", 0, 170);
         List<Location> locList = List.of(location1, location2);
         List<Location> onNorth = LocationOperators.filterOnNorth(locList);
         assertNotNull(onNorth);
         assertEquals(1, onNorth.size());
-        assertEquals("Bélbaltavár", onNorth.get(0).getName());
+        assertEquals("Bérbaltavár", onNorth.get(0).getName());
     }
 }
