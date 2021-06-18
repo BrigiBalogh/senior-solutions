@@ -1,3 +1,0 @@
-db.host = 192.168.10.20
-db.port = 1111
-db.schema = ütvefúrógép
