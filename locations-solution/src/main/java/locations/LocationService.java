@@ -28,7 +28,7 @@ public class LocationService {
 
             String line = null;
             while ((line = reader.readLine()) != null) {
-                result.add(line);
+                //result.add(line); // TODO
             }
         } catch (IOException ioe) {
             throw new IllegalArgumentException("Cannot read from file.", ioe);
