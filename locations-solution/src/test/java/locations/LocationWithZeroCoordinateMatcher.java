@@ -18,8 +18,8 @@ import org.hamcrest.TypeSafeMatcher;
         }
 
         @Override
-        protected boolean matchesSafely(javax.xml.stream.Location item) {
-            return matcher.matches(item.getlat());
+        protected boolean matchesSafely(Location item) {
+            return matcher.matches(item.getLat());
         }
 
         @Override

@@ -14,11 +14,10 @@ public class LocationService {
 
         try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(file))) {
             for(Location location : locations) {
-                PrintWriter spaces = writer.format(" %s,%d,%d\n",location.getName(), location.getLat(), location.getLon() );
-                writer.print(spaces);
+                writer.format("%s,%d,%d\n",location.getName(), location.getLat(), location.getLon() );
             }
         } catch (IOException ioe) {
-            throw new IllegalStateException("Cannot writethe file", ioe);
+            throw new IllegalStateException("Cannot write the file", ioe);
         }
     }
 
@@ -28,6 +27,8 @@ public class LocationService {
 
             String line = null;
             while ((line = reader.readLine()) != null) {
+
+                //Location loc = new Location()
                 //result.add(line); // TODO
             }
         } catch (IOException ioe) {

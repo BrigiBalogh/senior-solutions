@@ -7,16 +7,16 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static java.awt.geom.Path2D.contains;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.startsWithIgnoringCase;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -27,12 +27,13 @@ public class LocationTest {
 
 
         private LocationParser locationParser;
+    private LocationService locationService;
 
-        @BeforeEach
+    @BeforeEach
             // given
         void init() {
             locationParser = new LocationParser();
-
+            locationService = new LocationService();     
         }
 
         @Test
@@ -158,49 +159,54 @@ public class LocationTest {
 
     @Test
     void testReadLocations() {
-        List<Location> locations = Arrays.asList(
+        List<Location> locations = locationService.readLocations(Paths.get("favouritespace.csv"));
+        /*List<Location> locations = Arrays.asList(
                 new Location("Quito",0,-78.5),
                 new Location("Budapest",47.497912,19.040235),
                 new Location("London",51.5,0),
-                new Location("Papua mellett", 0, 170));
+                new Location("Papua mellett", 0, 170));*/
 
 
-   /*    assertThat(List.of(locations),hasItem("Quito",0,-78.5));
+        assertThat(List.of(locations),hasItem(new Location("Quito",0,-78.5)));
         assertThat(List.of(locations),
-                contains("Quito",0,-78.5, "Budapest", 47.497912,19.040235, "London",51.5,0, "Papua mellett", 0, 170));
+                contains(new Location("Quito",0,-78.5), new Location("Budapest", 47.497912,19.040235), new Location("London",51.5,0), new Location("Papua mellett", 0, 170)));
         assertThat(List.of(locations),
                 hasItem(hasProperty("name", startsWithIgnoringCase("Budapest"))));
-        nem ismeri fel a hamcrest!
+        //nem ismeri fel a hamcrest!
     }
 
     @Test
-    void testReadLocations2()  {
-            assertThat(locations)
-                    .extracting("name", "lat", "lon")
-                    .contains(tuple("Quito",0,-78.5),
-                            tuple("Budapest", 47.497912,19.040235),
-                            tuple("London",51.5,0),
-                            tuple( "Papua mellett", 0, 170));
+    void testReadLocations2() {
+        List<Location> locations = locationService.readLocations(Paths.get("favouritespace.csv"));
+        org.assertj.core.api.Assertions.assertThat(locations)
+                .extracting("name", "lat", "lon")
+                .contains(tuple("Quito", 0, -78.5),
+                        tuple("Budapest", 47.497912, 19.040235),
+                        tuple("London", 51.5, 0),
+                        tuple("Papua mellett", 0, 170));
 
-            assertThat(locations)
-                    .filteredOn(l -> l.getlat().contains("0"))
+        Condition<Location> latOrLongZero =
+                new Condition<>(l -> l.getLat() == 0 || l.getLon() == 0, "Lat or long zero");
+        org.assertj.core.api.Assertions.assertThat(locations)
+                .are(latOrLongZero);
+                    /*.filteredOn(l -> l.getLat() == 0 || l.getLon() == 0)
                     .extracting(location -> location.getLat())
-                    .containsOnly("Quito",0,-78.5);
-
-
-        @Test
-        void testLocationLatOrLonEqual0() {
-
-            Condition<Location> latOrLon =
-                    new Condition<>(l -> l.getLat().equals(0) || l -> l.getLon().equals(0),
-                            "Lat or lon equal 0.");
-            assertThat(Location).has(latOrLon);
-        }*/
+                    .containsOnly(0.0);*/
     }
 
-
-
+    @Test
+    void testLocationLatOrLonEqual0() {
+        List<Location> locations = locationService.readLocations(Paths.get("favouritespace.csv"));
+        Condition<Location> latOrLon =
+                new Condition<>(l -> l.getLat()==0 || l.getLon()== 0,
+                        "Lat or lon equal 0.");
+        org.assertj.core.api.Assertions.assertThat(locations).have(latOrLon);
+    }
 }
+
+
+
+
 
 
 
