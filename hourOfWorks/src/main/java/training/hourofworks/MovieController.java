@@ -1,5 +1,8 @@
 package training.hourofworks;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -13,7 +16,7 @@ public class MovieController {
 
 
     @GetMapping("/")
-    public List<Movie> listMovie(){
+    public List<Movie> listMovies(){
         return movieService.listMovies();
     }
 

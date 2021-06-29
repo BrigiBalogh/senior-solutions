@@ -1,10 +1,10 @@
-package training.locationsspringsolution;
+package cars;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LocationsSpringSolutionApplicationTests {
+class CarApplicationTests {
 
     @Test
     void contextLoads() {

@@ -7,8 +7,8 @@ import java.util.List;
 public class MovieService {
 
     private List<Movie> movies = List.of(
-            new Movie("Titanic", 120, 4,7),
-            new Movie("Thor", 121, 4,5)
+            new Movie("Titanic", 120, 4.7),
+            new Movie("Thor", 121, 4.5)
     );
 
 

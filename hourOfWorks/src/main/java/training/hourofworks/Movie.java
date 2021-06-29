@@ -1,5 +1,7 @@
 package training.hourofworks;
 
+import java.util.Objects;
+
 public class Movie {
 
     private String title;
@@ -31,5 +33,18 @@ public class Movie {
                 ", length=" + length +
                 ", rating=" + rating +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return length == movie.length && Double.compare(movie.rating, rating) == 0 && Objects.equals(title, movie.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, length, rating);
     }
 }
