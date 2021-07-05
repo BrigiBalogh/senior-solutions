@@ -10,8 +10,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -22,5 +22,45 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>streams.Main</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+    <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.32.0</version>
+        <configuration>
+            <verbose>true</verbose>
+            <images>
+                <image>
+                    <name>streams-demo</name>
+                    <build>
+                        <dockerFileDir>${project.basedir}/</dockerFileDir>
+                        <assembly>
+                            <descriptorRef>artifact</descriptorRef>
+                        </assembly>
+                        <tags>
+                            <tag>latest</tag>
+                            <tag>${project.version}</tag>
+                        </tags>
+                    </build>
+                    <run>
+                        <ports>8080:8080</ports>
+                    </run>
+                </image>
+            </images>
+        </configuration>
+    </plugin>
+    </plugins></build>
 </project>
