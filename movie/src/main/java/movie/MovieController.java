@@ -43,7 +43,8 @@ public class MovieController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MovieDto createMovie(@RequestBody CreateMovieCommand command) {
+    public MovieDto createMovie(@RequestBody CreateMovieCommand command)
+    {
         return movieService.createMovie(command);
     }
 

@@ -66,9 +66,11 @@ public class MovieService {
 
 
 
-    public MovieDto getMovieById(long id) {
+    public MovieDto MovieById(long id) {
         return modelMapper.map(findById(id),MovieDto.class);
     }
+
+
 
     public void deleteMovieById(long id) {
         Movie movie = findById(id);
