@@ -29,7 +29,7 @@ public class LocationsController {
 
   /*  @GetMapping
     public  String getLocations() {
-        List<Location> locations = List.of(new Location(1l, "Budapest",47.497912,-19.040235),
+        List<Location> locations = List.of(new Location(1l, "Budapest",47.497912,19.040235),
                 new Location(2l, "London",51.5,0),
                 new Location(3l, "Quito",0, -78.5));
 

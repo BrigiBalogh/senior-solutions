@@ -81,7 +81,7 @@ public class LocationControllerRestTemplateIT {
     @Test
     void testCreateLocation() {
 
-        assertEquals("Budapest", locationDto.getName());
+        assertEquals("Budapest", locatioDto.getName());
     }
 
     @Test
