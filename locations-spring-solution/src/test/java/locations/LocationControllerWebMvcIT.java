@@ -52,7 +52,7 @@ public class LocationControllerWebMvcIT {
 
 
     @Test
-    void testGetLocation() throws Exception {
+    void testGetLocationById() throws Exception {
         when(locationsService.getLocationById(anyLong())).thenReturn(budapest);
 
 
