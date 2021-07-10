@@ -82,4 +82,9 @@ public class MovieService {
         Movie movie = findById(id);
         return modelMapper.map(movie, MovieDto.class);
     }
+
+    public MovieDto getMovieById(long id) {
+        Movie movie = findById(id);
+        return modelMapper.map(movie, MovieDto.class);
+    }
 }

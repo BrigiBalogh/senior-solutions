@@ -1,10 +1,9 @@
 package movie;
 
 
-import org.apache.el.stream.Optional;
-import org.apache.tomcat.jni.Status;
 import org.modelmapper.internal.bytebuddy.dynamic.DynamicType;
-import org.springframework.beans.factory.parsing.Problem;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.*;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/movies")
@@ -29,7 +29,7 @@ public class MovieController {
 
     @GetMapping
     public List<MovieDto> getMoviess(@RequestParam Optional<String> prefix) {
-        return movieService.getMovies(prefix);
+        return movieService.getMoviess(prefix);
     }
 
 

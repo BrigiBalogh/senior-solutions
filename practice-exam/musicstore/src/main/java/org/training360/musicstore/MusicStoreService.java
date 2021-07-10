@@ -29,11 +29,12 @@ public class MusicStoreService {
     }
 
     public List<InstrumentDTO> getInstruments(Optional<String> brand, Optional<Integer> price) {
-        Type targetListType = new TypeToken<List<InstrumentDTO>>(){}.getType();
+        Type targetListType = new TypeToken<List<InstrumentDTO>>() {
+        }.getType();
 
-        List<Instrument> filtered =instruments.stream()
+        List<Instrument> filtered = instruments.stream()
                 .filter(i -> brand.isEmpty() || i.getBrand().equalsIgnoreCase(brand.get()))
-                .filter(i -> price.isEmpty() || i.getPrice()== price.get())
+                .filter(i -> price.isEmpty() || i.getPrice() == price.get())
                 .collect(Collectors.toList());
         return modelMapper.map(filtered, targetListType);
     } // .map( modelMapper.map(filtered, targetListType));
@@ -48,13 +49,13 @@ public class MusicStoreService {
 
 
     public InstrumentDTO getInstrumentById(long id) {
-        return modelMapper.map(findById(id),InstrumentDTO.class);
+        return modelMapper.map(findById(id), InstrumentDTO.class);
     }
 
     public InstrumentDTO createInstrument(CreateInstrumentCommand command) {
         Instrument instrument =
                 new Instrument(id.incrementAndGet(), command.getBrand(),
-                command.getType(), command.getPrice(), LocalDate.now());
+                        command.getType(), command.getPrice(), LocalDate.now());
         instruments.add(instrument);
 
         return modelMapper.map(instrument, InstrumentDTO.class);
@@ -76,13 +77,11 @@ public class MusicStoreService {
     public InstrumentDTO updateInstrumentPrice(long id, UpdatePriceCommand command) {
 
         Instrument result = findById(id);
-        if(result.getPrice() != command.getPrice()) {
+        if (result.getPrice() != command.getPrice()) {
             result.setPrice(command.getPrice());
             result.setPostDate(LocalDate.now());
         }
 
-        return modelMapper.map(result,InstrumentDTO.class);
-
-
+        return modelMapper.map(result, InstrumentDTO.class);
     }
 }
