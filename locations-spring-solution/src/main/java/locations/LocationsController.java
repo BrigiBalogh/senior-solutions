@@ -28,7 +28,7 @@ public class LocationsController {
         this.locationsService = locationsService;
     }
 
-  /*  @GetMapping
+  /* @GetMapping
     public  String getLocations() {
         List<Location> locations = List.of(new Location(1l, "Budapest",47.497912,19.040235),
                 new Location(2l, "London",51.5,0),

@@ -36,7 +36,6 @@ public class LocationControllerWebMvcIT {
         budapest = new LocationDto("Budapest", 47.497912, 19.040235);
         london = new LocationDto("London", 51.5, 0);
         quito = new LocationDto("Quito", 0, -78.5);
-
     }
 
 
