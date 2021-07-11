@@ -40,10 +40,10 @@ public class LocationsController {
         return locationsService.getLocations().toString();
     }
     */
-    @GetMapping
-    public List<LocationDto> getLocationsOtherVariable(@RequestParam Optional<String> name) {
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public LocationsDto getLocationsOtherVariable(@RequestParam Optional<String> name) {
 
-        return locationsService.getLocationsOtherVariable(name);
+        return new LocationsDto( locationsService.getLocationsOtherVariable(name));
     }
 
     /*@GetMapping("/{id}")
@@ -52,7 +52,7 @@ public class LocationsController {
         return  locationsService.getLocationById(id);
     }*/
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
     public ResponseEntity findLocationById(@PathVariable("id") long id) {
         try {
             return ResponseEntity.ok(locationsService.findLocationById(id));

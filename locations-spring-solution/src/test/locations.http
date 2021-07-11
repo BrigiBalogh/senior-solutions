@@ -1,0 +1,38 @@
+
+###
+GET http://localhost:8080/locations/
+Accept: application/json
+
+###
+GET http://localhost:8080/locations/
+Accept: application/json
+
+###
+GET http://localhost:8080/locations/1
+Accept: application/json
+
+###
+GET http://localhost:8080/locations/1
+Accept: application/xml
+
+###
+POST http://localhost:8080/locations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Budapest",
+  "lat": 47.497912,
+  "lon": 19.040235
+}
+
+###
+PUT http://localhost:8080/locations/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Funchal",
+  "lat": 11.0,
+  "lon": 25.0
+}
