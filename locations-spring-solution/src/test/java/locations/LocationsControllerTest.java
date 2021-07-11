@@ -52,7 +52,14 @@ class LocationsControllerTest {
                 .contains("Budapest", "London", "Quito");
     }
 
+    @Test
+    void testGetLocationById() {
+        when(service.getLocationById(anyLong())).thenReturn(budapest);
 
+        LocationDto result =controller.getLocationById(1L);
+
+        assertEquals("Budapest", result.getName());
+    }
 
     @Test
     void testFindLocationByName() {
