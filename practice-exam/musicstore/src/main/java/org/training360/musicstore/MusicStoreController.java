@@ -65,21 +65,6 @@ public class MusicStoreController {
     }
 
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<org.zalando.problem.Problem> handleNotFound(IllegalArgumentException iae) {
-        org.zalando.problem.Problem problem =
-                Problem.builder()
-                        .withType(URI.create("instruments/not-found"))
-                        .withTitle("Not found")
-                        .withStatus(Status.NOT_FOUND)
-                        .withDetail(iae.getMessage())
-                        .build();
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-                .body(problem);
-    }
 
 }
 /*
