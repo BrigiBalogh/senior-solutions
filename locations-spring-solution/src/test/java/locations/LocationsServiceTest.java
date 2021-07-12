@@ -81,7 +81,7 @@ class LocationsServiceTest {
     void updateLocation() {
         UpdateLocationCommand command = new UpdateLocationCommand();
         command.setName("Funchal");
-        command.setLat(11;
+        command.setLat(11);
         command.setLon(25);
         LocationDto result = service.updateLocation(1L, command);
         assertAll(
