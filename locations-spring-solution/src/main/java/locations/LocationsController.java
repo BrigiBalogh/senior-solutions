@@ -28,8 +28,8 @@ public class LocationsController {
         this.locationsService = locationsService;
     }
 
-  /* @GetMapping
-    public  String getLocations() {
+   /*@GetMapping
+    public  List<LocationDto> getLocationsOld() {
         List<Location> locations = List.of(new Location(1l, "Budapest",47.497912,19.040235),
                 new Location(2l, "London",51.5,0),
                 new Location(3l, "Quito",0, -78.5));
@@ -38,27 +38,27 @@ public class LocationsController {
                 .map(l -> l.toString())
                 .collect(Collectors.joining(", "));
 
-        return locationsService.getLocations().toString();
-    }
+        return locationsService.getLocations();
+    }*/
 
-    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    /*@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public LocationsDto getLocationsOtherVariable(@RequestParam Optional<String> name) {
 
         return new LocationsDto( locationsService.getLocationsOtherVariable(name));
     }*/
 
     @GetMapping
-    public List<LocationDto> getLocationsOtherVariable(@RequestParam Optional<String> name) {
+    public List<LocationDto> getLocations(@RequestParam Optional<String> name) {
 
         return locationsService.getLocationsOtherVariable(name);
     }
 
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public LocationDto getLocationById(@PathVariable("id") long id) {
         return  locationsService.getLocationById(id);
-    }*/
+    }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity findLocationById(@PathVariable("id") long id) {

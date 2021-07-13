@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,7 +45,7 @@ class LocationsControllerTest {
 
         when(service.getLocations()).thenReturn(locations);
 
-        List<LocationDto> result = controller.getLocations();
+        List<LocationDto> result = controller.getLocations(Optional.empty());
 
         assertThat(result)
                 .hasSize(3)
@@ -72,14 +73,7 @@ class LocationsControllerTest {
     }
 
 
-    @Test
-    void testGetLocationById() {
-        when(service.getLocationById(anyLong())).thenReturn(budapest);
 
-        LocationDto result =controller.getLocationById(1L);
-
-        assertEquals("Budapest", result.getName());
-    }
 
     @Test
     void TestCreateLocation() {

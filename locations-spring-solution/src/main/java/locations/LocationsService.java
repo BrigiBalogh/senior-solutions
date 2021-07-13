@@ -30,9 +30,9 @@ public class LocationsService {
 
     private List<Location>locations;
 
-    public List<Location> getLocations() {
-
-        return new ArrayList<>(locations);
+    public List<LocationDto> getLocations() {
+        Type targetListType = new TypeToken<List<LocationDto>>(){}.getType();
+        return modelMapper.map(locations, targetListType);
     }
 
     public  List<LocationDto> getLocationsOtherVariable(Optional<String>name ) {

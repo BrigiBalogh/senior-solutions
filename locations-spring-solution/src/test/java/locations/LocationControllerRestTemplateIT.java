@@ -27,20 +27,24 @@ public class LocationControllerRestTemplateIT {
         locationsService.deleteAll();
     }
 
+    private LocationDto locationDto;
+    private LocationDto locationDto1;
+    private LocationDto locationDto2;
+
     @BeforeEach
     void initAnother() {
-        LocationDto locationDto =
+        locationDto =
                 template.postForObject("/locations",
                         new CreateLocationCommand("Budapest",  47.497912, 19.040235),
                         LocationDto.class);
 
-        LocationDto locationDto1 =
+        locationDto1 =
                 template.postForObject("/locations",
                         new CreateLocationCommand( "London",51.5,0),
                         LocationDto.class);
 
 
-        LocationDto locationDto2 =
+        locationDto2 =
                 template.postForObject("/locations",
                         new CreateLocationCommand(  "Quito",0, -78.5),
                         LocationDto.class);
@@ -81,7 +85,7 @@ public class LocationControllerRestTemplateIT {
     @Test
     void testCreateLocation() {
 
-        assertEquals("Budapest", locatioDto.getName());
+        assertEquals("Budapest", locationDto.getName());
     }
 
     @Test
