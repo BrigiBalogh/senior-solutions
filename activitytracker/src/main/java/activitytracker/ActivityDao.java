@@ -41,29 +41,29 @@ public class ActivityDao {
                .getResultList();
        entityManager.close();
        return activities;
-
     }
-}
-/*
 
-
-
-
-
-    public void changeName(long id, String name) {
+    public void changeDescription(long id, String desc) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Employee employee = entityManager.find(Employee.class, id);
-        employee.setName(name);
+        Activity activity = entityManager.find(Activity.class, id);
+        activity.setDesc(desc);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
-    public void delete(long id) {
+    public void deleteActivity(long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Employee employee = entityManager.find(Employee.class, id);
-        entityManager.remove(employee);
+        Activity activity = entityManager.find(Activity.class, id);
+        entityManager.remove(activity);
         entityManager.getTransaction().commit();
     }
-*/
+
+}
+
+
+
+
+
+
