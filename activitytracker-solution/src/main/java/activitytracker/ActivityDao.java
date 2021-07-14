@@ -43,7 +43,7 @@ public class ActivityDao {
        return activities;
     }
 
-    public void changeDescription(long id, String desc) {
+    public void updateActivity(long id, String desc) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Activity activity = entityManager.find(Activity.class, id);

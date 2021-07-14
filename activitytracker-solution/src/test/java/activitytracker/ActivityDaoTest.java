@@ -104,9 +104,9 @@ class ActivityDaoTest {
 
 
     @Test
-    public void testChangeDescription() {
+    public void testUpdateActivity() {
         activityDao.saveActivity(activityVariant1);
-        activityDao.changeDescription(activityVariant1.getId(), "fast running");
+        activityDao.updateActivity(activityVariant1.getId(), "fast running");
         Activity modifiedActivity = activityDao.findActivityById(activityVariant1.getId());
 
         assertEquals("fast running", modifiedActivity.getDesc());
