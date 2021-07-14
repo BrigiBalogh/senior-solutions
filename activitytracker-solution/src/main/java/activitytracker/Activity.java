@@ -9,12 +9,14 @@ public class Activity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "start_time")
+  @Column(name = "start_time", nullable = false)
   private LocalDateTime startTime;
-  @Column(name = "activity_description")
+  @Column(name = "activity_description",length = 200, nullable = false)
   private String desc;
-  @Column(name = "activity_type")
-  private ActivityType  type;
+
+  @Column(name = "activity_type", length = 20, nullable = false)
+  @Enumerated(EnumType.STRING)
+  private ActivityType  type = ActivityType.RUNNING;
 
   public Activity() {
   }

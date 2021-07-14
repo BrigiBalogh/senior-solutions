@@ -56,7 +56,7 @@ public class ActivityDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Activity activity = entityManager.find(Activity.class, id);
-        entityManager.remove(activity);
+        entityManager.remove(activity   );
         entityManager.getTransaction().commit();
     }
 
