@@ -2,20 +2,21 @@ package activitytracker;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Table(name = "activities")
 public class Activity {
 
   @Id
- // @GeneratedValue(strategy = GenerationType.AUTO)
-  //@GeneratedValue(strategy = GenerationType.IDENTITY)
+ // @GeneratedValue(strategy = GenerationType.AUTO)/@GeneratedValue(strategy = GenerationType.IDENTITY)
   @GeneratedValue(generator = "Act_Gen")
-  @TableGenerator(name = "Act_Gen",
+ /* @TableGenerator(name = "Act_Gen",
           table = "act_id_gen",
           pkColumnName = "id_gen",
           valueColumnName = "id_val",
           initialValue=10000,
-          allocationSize=100)
+          allocationSize=100)*/
   private Long id;
   @Column(name = "start_time", nullable = false)
   private LocalDateTime startTime;
@@ -26,6 +27,18 @@ public class Activity {
   @Enumerated(EnumType.STRING)
   private ActivityType  type = ActivityType.RUNNING;
 
+  @Column(name ="created_at" )
+  //@PrePersist()
+  private LocalDateTime createdAt;
+
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt  ;
+
+  @ElementCollection
+  @CollectionTable(name ="LABELS",joinColumns = @JoinColumn(  name = "AC_ID"))
+  @Column(name = "LABELS")
+  private List<String> labels;
+
   public Activity() {
   }
 
@@ -33,6 +46,15 @@ public class Activity {
     this.startTime = startTime;
     this.desc = desc;
     this.type = type;
+  }
+
+  public Activity(LocalDateTime startTime, String desc, ActivityType type, LocalDateTime createdAt,
+                  LocalDateTime updatedAt) {
+    this.startTime = startTime;
+    this.desc = desc;
+    this.type = type;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public Long getId() {
@@ -67,6 +89,30 @@ public class Activity {
     this.type = type;
   }
 
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public List<String> getLabels() {
+    return labels;
+  }
+
+  public void setLabels(List<String> labels) {
+    this.labels = labels;
+  }
+
   @Override
   public String toString() {
     return "Activity{" +
@@ -74,6 +120,8 @@ public class Activity {
             ", startTime=" + startTime +
             ", desc='" + desc + '\'' +
             ", type=" + type +
+            ", createdAt=" + createdAt +
+            ", updatedAt=" + updatedAt +
             '}';
   }
 }

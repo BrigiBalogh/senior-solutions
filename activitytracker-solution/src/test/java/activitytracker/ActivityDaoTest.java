@@ -130,6 +130,23 @@ class ActivityDaoTest {
         Activity activity = activityDao.findActivityById(12L);
         assertEquals(null, activity);
     }
+
+    @Test
+    void testFindActivityByIdWithLabels() {
+
+        activityVariant1.setLabels(List.of("könnyű", "közepes", "erős"));
+        activityDao.saveActivity(activityVariant1);
+        Long id = activityVariant1.getId();
+
+        activityVariant2 = activityDao.findActivityByIdWithLabels(id);
+        assertEquals(3, activityVariant1.getLabels().size());
+
+        assertThat(activityVariant2.getLabels())
+                .hasSize(3)
+                .containsExactly("könnyű", "közepes", "erős");
+
+
+    }
 }
 
 
