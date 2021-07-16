@@ -2,6 +2,7 @@ package activitytracker;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,16 +29,22 @@ public class Activity {
   private ActivityType  type = ActivityType.RUNNING;
 
   @Column(name ="created_at" )
-  //@PrePersist()
-  private LocalDateTime createdAt;
+ private LocalDateTime createdAt;
 
   @Column(name = "updated_at")
   private LocalDateTime updatedAt  ;
 
   @ElementCollection
-  @CollectionTable(name ="LABELS",joinColumns = @JoinColumn(  name = "AC_ID"))
-  @Column(name = "LABELS")
+  @CollectionTable(name ="labels",joinColumns = @JoinColumn(  name = "ac_id"))
+  @Column(name = "label")
   private List<String> labels;
+
+ // @ElementCollection
+//  @CollectionTable(name ="trackPoints",joinColumns = @JoinColumn(  name = "tp_id"))
+  @OneToMany(mappedBy = "activity",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+  @OrderColumn(name = "track_point")
+  @OrderBy("time")
+  private List<TrackPoint> trackPoints;
 
   public Activity() {
   }
@@ -57,7 +64,18 @@ public class Activity {
     this.updatedAt = updatedAt;
   }
 
-  public Long getId() {
+  @PrePersist
+  public void prePersist() {
+      this.createdAt = LocalDateTime.now();
+      this.updatedAt = this.createdAt;
+  }
+
+  @PreUpdate
+  public void preUpdate() {
+      this.updatedAt = LocalDateTime.now();
+  }
+
+    public Long getId() {
     return id;
   }
 
@@ -113,6 +131,20 @@ public class Activity {
     this.labels = labels;
   }
 
+  public List<TrackPoint> getTrackPoints() {
+    return trackPoints;
+  }
+
+  public void setTrackPoints(List<TrackPoint> trackPoints) {
+    this.trackPoints = trackPoints;
+  }
+    public void addTrackPoint(TrackPoint trackPoint) {
+        if (trackPoints == null) {
+            trackPoints = new ArrayList<>();
+        }
+        trackPoints.add(trackPoint);
+        trackPoints.setActivity(this);
+    }
   @Override
   public String toString() {
     return "Activity{" +
@@ -122,8 +154,10 @@ public class Activity {
             ", type=" + type +
             ", createdAt=" + createdAt +
             ", updatedAt=" + updatedAt +
+            ", labels=" + labels +
+            ", trackPoints=" + trackPoints +
             '}';
   }
 }
-/* docker run -d -e MYSQL_DATABASE=activitytracker -e MYSQL_USER=activitytracker -e MYSQL_PASSWORD=activitytracker -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -p 3307:3307 --name activitytracker-mysql mysql
+/* docker run -d -e MYSQL_DATABASE=activitytracker -e MYSQL_USER=activitytracker -e MYSQL_PASSWORD=activitytracker -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -p 3307:3306 --name activitytracker-mysql mysql
  */
