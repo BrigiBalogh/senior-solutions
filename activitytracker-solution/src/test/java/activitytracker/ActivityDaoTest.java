@@ -1,6 +1,6 @@
 package activitytracker;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+//import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -33,16 +34,16 @@ class ActivityDaoTest {
         activityDao = new ActivityDao(entityManagerFactory);
 
 
-        Activity activityVariant1 = new Activity(LocalDateTime.of(2021, 3, 15, 9, 0),
+        activityVariant1 = new Activity(LocalDateTime.of(2021, 3, 15, 9, 0),
                 "easy running", ActivityType.RUNNING);
 
-        Activity activityVariant2 = new Activity(LocalDateTime.of(2021, 4, 11, 9, 0),
+        activityVariant2 = new Activity(LocalDateTime.of(2021, 4, 11, 9, 0),
                 "Tour of the Alps", ActivityType.HIKING);
 
-        Activity activityVariant3 = new Activity(LocalDateTime.of(2021, 5, 12, 9, 0),
+        activityVariant3 = new Activity(LocalDateTime.of(2021, 5, 12, 9, 0),
                 "mountain biking", ActivityType.BIKING);
 
-        Activity activityVariant4 = new Activity(LocalDateTime.of(2021, 1, 12, 9, 0),
+        activityVariant4 = new Activity(LocalDateTime.of(2021, 1, 12, 9, 0),
                 "a little basketball", ActivityType.BASKETBALL);
 
       /*  MysqlDataSource dataSource = new MysqlDataSource();
@@ -92,7 +93,7 @@ class ActivityDaoTest {
         List<String> description = activities.stream()
                 .map(Activity::getDesc)
                 .collect(Collectors.toList());
-        assertEquals(Arrays.asList("easy running", "Tour of the Alps", "mountain biking", "a little basketball"),
+        assertEquals(Arrays.asList("a little basketball", "easy running", "mountain biking", "Tour of the Alps"),
                 description);
 
         assertThat(activities)
@@ -144,8 +145,41 @@ class ActivityDaoTest {
         assertThat(activityVariant2.getLabels())
                 .hasSize(3)
                 .containsExactly("könnyű", "közepes", "erős");
+    }
 
+    @Test
+    void testFindActivityByIdWithTrackPoints() {
 
+        TrackPoint trackPointFirst = new TrackPoint(LocalDate.of(2021, 6, 12),25.5, 95.5);
+        TrackPoint trackPointSecond = new TrackPoint(LocalDate.of(2021, 5, 5),35.5, 115.5);
+
+        activityVariant2.addTrackPoint(trackPointFirst);
+        activityVariant2.addTrackPoint(trackPointSecond);
+        activityDao.saveActivity(activityVariant2);
+
+        Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(activityVariant2.getId());
+        assertEquals(2,anotherActivity.getTrackPoints().size());
+        assertEquals(trackPointFirst,anotherActivity.getTrackPoints().get(0).getTime());
+
+        assertThat(anotherActivity.getTrackPoints())
+                .hasSize(2)
+                .extracting(TrackPoint::getTime)
+                .containsExactly(LocalDate.of(2021, 6, 12),
+                        LocalDate.of(2021, 5, 5));
+
+        assertEquals(LocalDate.of(2021, 6, 12),
+                anotherActivity.getTrackPoints().get(0).getTime());
+    }
+
+    @Test
+    public void testAddTrackPoint() {
+
+        activityDao.saveActivity(activityVariant2);
+
+        activityDao.addTrackPoint(activityVariant2.getId(), new TrackPoint(LocalDate.of(
+                2021, 6, 12),25.5, 95.5));
+        Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(activityVariant2.getId());
+        assertEquals(1,anotherActivity.getTrackPoints().size());
     }
 }
 

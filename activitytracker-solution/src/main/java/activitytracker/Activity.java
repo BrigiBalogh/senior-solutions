@@ -45,6 +45,11 @@ public class Activity {
   @OrderColumn(name = "track_point")
   @OrderBy("time")
   private List<TrackPoint> trackPoints;
+  @ManyToMany(mappedBy = "activities")
+  @JoinTable(name="ac_area",
+          joinColumns=@JoinColumn(name="AC_ID"),
+          inverseJoinColumns=@JoinColumn(name="area_ID"))
+  private List<Area> areas = new ArrayList<>();
 
   public Activity() {
   }
@@ -135,16 +140,39 @@ public class Activity {
     return trackPoints;
   }
 
-  public void setTrackPoints(List<TrackPoint> trackPoints) {
+  public void setTrackPoint(List<TrackPoint> trackPoints) {
     this.trackPoints = trackPoints;
   }
+
+    public void setTrackPoints(List<TrackPoint> trackPoints) {
+        this.trackPoints = trackPoints;
+    }
+
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+
     public void addTrackPoint(TrackPoint trackPoint) {
         if (trackPoints == null) {
             trackPoints = new ArrayList<>();
         }
         trackPoints.add(trackPoint);
-        trackPoints.setActivity(this);
+        trackPoint.setActivity(this);
     }
+
+    public void addArea(Area area ) {
+      if (areas == null) {
+          areas = new ArrayList<>();
+      }
+      areas.add(area);
+        area.getActivities().add(this);
+    }
+
+
   @Override
   public String toString() {
     return "Activity{" +
