@@ -21,6 +21,8 @@ class ActivityDaoTest {
 
 
     ActivityDao activityDao;
+    AreaDao areaDao;
+
 
     Activity activityVariant1;
     Activity activityVariant2;
@@ -32,6 +34,7 @@ class ActivityDaoTest {
     void init() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         activityDao = new ActivityDao(entityManagerFactory);
+        areaDao =new AreaDao(entityManagerFactory);
 
 
         activityVariant1 = new Activity(LocalDateTime.of(2021, 3, 15, 9, 0),
@@ -105,7 +108,7 @@ class ActivityDaoTest {
 
 
     @Test
-    public void testUpdateActivity() {
+     void testUpdateActivity() {
         activityDao.saveActivity(activityVariant1);
         activityDao.updateActivity(activityVariant1.getId(), "fast running");
         Activity modifiedActivity = activityDao.findActivityById(activityVariant1.getId());
@@ -114,7 +117,7 @@ class ActivityDaoTest {
     }
 
     @Test
-    public void testDelete() {
+     void testDelete() {
         activityDao.saveActivity(activityVariant1);
         activityDao.saveActivity(activityVariant2);
         activityDao.deleteActivity(activityVariant1.getId());
@@ -127,7 +130,7 @@ class ActivityDaoTest {
     }
 
     @Test
-    public void testIllegalId() {
+     void testIllegalId() {
         Activity activity = activityDao.findActivityById(12L);
         assertEquals(null, activity);
     }
@@ -180,6 +183,41 @@ class ActivityDaoTest {
                 2021, 6, 12),25.5, 95.5));
         Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(activityVariant2.getId());
         assertEquals(1,anotherActivity.getTrackPoints().size());
+    }
+
+    @Test
+    void testSaveArea() {
+
+        activityDao.saveActivity(activityVariant1);
+        activityDao.saveActivity(activityVariant2);
+        activityDao.saveActivity(activityVariant3);
+
+        Area madeira = new Area("Funchal");
+        Area spain = new Area("Sierra Nevada");
+        Area italy = new Area("Amalfi");
+
+        madeira.addActivity(activityVariant1);
+        madeira.addActivity(activityVariant2);
+        madeira.addActivity(activityVariant3);
+
+        spain.addActivity(activityVariant1);
+        spain.addActivity(activityVariant2);
+        spain.addActivity(activityVariant3);
+
+        italy.addActivity(activityVariant1);
+        italy.addActivity(activityVariant2);
+        italy.addActivity(activityVariant3);
+
+        areaDao.saveArea(madeira);
+        areaDao.saveArea(spain);
+        areaDao.saveArea(italy);
+
+        Area area = areaDao.findAreaByName("Funchal");
+
+        assertEquals(List.of(activityVariant1, activityVariant2, activityVariant3),
+                area.getActivities().stream()
+                        .map(Activity::getAreas)
+                        .collect(Collectors.toList()));
     }
 }
 

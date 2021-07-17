@@ -19,4 +19,15 @@ public class AreaDao {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public Area findAreaByName(String name) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Area area = entityManager.createQuery("select a from Area a join fetch a.activities where a.name = :name"
+                ,Area.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        entityManager.close();
+        return area;
+    }
 }
