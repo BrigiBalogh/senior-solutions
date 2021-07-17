@@ -10,8 +10,9 @@ import java.util.List;
 public class Activity {
 
   @Id
- // @GeneratedValue(strategy = GenerationType.AUTO)/@GeneratedValue(strategy = GenerationType.IDENTITY)
-  @GeneratedValue(generator = "Act_Gen")
+ // @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+ // @GeneratedValue(generator = "Act_Gen")
  /* @TableGenerator(name = "Act_Gen",
           table = "act_id_gen",
           pkColumnName = "id_gen",
