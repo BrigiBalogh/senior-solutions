@@ -7,6 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "activities")
+@SecondaryTable(name="activity_details",
+        pkJoinColumns=@PrimaryKeyJoinColumn(name="ac_id"))
 public class Activity {
 
   @Id
@@ -40,6 +42,13 @@ public class Activity {
   @Column(name = "label")
   private List<String> labels;
 
+@Column(table = "activity_details")
+  private int  distance;
+
+    @Column(table = "activity_details")
+  private int  duration;
+
+
  // @ElementCollection
 //  @CollectionTable(name ="trackPoints",joinColumns = @JoinColumn(  name = "tp_id"))
   @OneToMany(mappedBy = "activity",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -70,7 +79,21 @@ public class Activity {
     this.updatedAt = updatedAt;
   }
 
-  @PrePersist
+
+    public Activity(LocalDateTime startTime, String desc, ActivityType type, LocalDateTime createdAt, LocalDateTime updatedAt, List<String> labels, int distance, int duration, List<TrackPoint> trackPoints, List<Area> areas) {
+        this.startTime = startTime;
+        this.desc = desc;
+        this.type = type;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.labels = labels;
+        this.distance = distance;
+        this.duration = duration;
+        this.trackPoints = trackPoints;
+        this.areas = areas;
+    }
+
+    @PrePersist
   public void prePersist() {
       this.createdAt = LocalDateTime.now();
       this.updatedAt = this.createdAt;
@@ -155,6 +178,22 @@ public class Activity {
 
     public void setAreas(List<Area> areas) {
         this.areas = areas;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public void addTrackPoint(TrackPoint trackPoint) {

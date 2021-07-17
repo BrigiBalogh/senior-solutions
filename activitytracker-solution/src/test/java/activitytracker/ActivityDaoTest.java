@@ -219,6 +219,19 @@ class ActivityDaoTest {
                         .map(Activity::getAreas)
                         .collect(Collectors.toList()));
     }
+
+
+    @Test
+    public void testActivityWithDetailsAttributes() {
+
+        activityVariant1.setDistance(50);
+        activityVariant1.setDuration(11000);
+
+        activityDao.saveActivity(activityVariant1);
+
+       Activity anotherActivity =activityDao.findActivityById(activityVariant1.getId());
+       assertEquals(50,anotherActivity.getDistance());
+    }
 }
 
 
