@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class AreaDaoTest {
 
 
-    private AreaDao areaDao;
+     AreaDao areaDao;
 
     @BeforeEach
-    public void init() {
+    void init() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         areaDao = new AreaDao(entityManagerFactory);
     }

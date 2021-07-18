@@ -55,6 +55,8 @@ public class Activity {
   @OrderColumn(name = "track_point")
   @OrderBy("time")
   private List<TrackPoint> trackPoints;
+
+
   @ManyToMany(mappedBy = "activities")
   @JoinTable(name="ac_area",
           joinColumns=@JoinColumn(name="AC_ID"),

@@ -2,6 +2,7 @@ package activitytracker;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ActivityDao {
@@ -92,11 +93,33 @@ public class ActivityDao {
         entityManager.persist(trackPoint);
         entityManager.getTransaction().commit();
         entityManager.close();
-
     }
+
+
+    public List<Object[]> findTrackPointCountByActivity() {
+
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            List<Object[]> activityDatas = entityManager
+                    .createQuery("select count(t.activity) from TrackPoint t", Object[].class)
+                    .getResultList();
+            entityManager.close();
+            return activityDatas;
+    }
+
+
+    public void removeActivitiesByDateAndType(LocalDateTime afterThis, ActivityType type) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.
+                createQuery("delete  from Activity a  where a.startTime > :time and a.type = : type")
+                .setParameter("time", afterThis)
+                .setParameter("type", type)
+                .executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
 }
-
-
 
 
 

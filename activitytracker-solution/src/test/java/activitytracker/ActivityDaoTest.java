@@ -34,7 +34,7 @@ class ActivityDaoTest {
     void init() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         activityDao = new ActivityDao(entityManagerFactory);
-        areaDao =new AreaDao(entityManagerFactory);
+        areaDao = new AreaDao(entityManagerFactory);
 
 
         activityVariant1 = new Activity(LocalDateTime.of(2021, 3, 15, 9, 0),
@@ -108,7 +108,7 @@ class ActivityDaoTest {
 
 
     @Test
-     void testUpdateActivity() {
+    void testUpdateActivity() {
         activityDao.saveActivity(activityVariant1);
         activityDao.updateActivity(activityVariant1.getId(), "fast running");
         Activity modifiedActivity = activityDao.findActivityById(activityVariant1.getId());
@@ -117,20 +117,20 @@ class ActivityDaoTest {
     }
 
     @Test
-     void testDelete() {
+    void testDelete() {
         activityDao.saveActivity(activityVariant1);
         activityDao.saveActivity(activityVariant2);
         activityDao.deleteActivity(activityVariant1.getId());
 
-        List<Activity> activities =activityDao.listActivities();
+        List<Activity> activities = activityDao.listActivities();
 
-        List<String> descriptions  = activities.stream()
+        List<String> descriptions = activities.stream()
                 .map(Activity::getDesc).collect(Collectors.toList());
-        assertEquals(Arrays.asList("Tour of the Alps"),descriptions );
+        assertEquals(Arrays.asList("Tour of the Alps"), descriptions);
     }
 
     @Test
-     void testIllegalId() {
+    void testIllegalId() {
         Activity activity = activityDao.findActivityById(12L);
         assertEquals(null, activity);
     }
@@ -153,16 +153,16 @@ class ActivityDaoTest {
     @Test
     void testFindActivityByIdWithTrackPoints() {
 
-        TrackPoint trackPointFirst = new TrackPoint(LocalDate.of(2021, 6, 12),25.5, 95.5);
-        TrackPoint trackPointSecond = new TrackPoint(LocalDate.of(2021, 5, 5),35.5, 115.5);
+        TrackPoint trackPointFirst = new TrackPoint(LocalDate.of(2021, 6, 12), 25.5, 95.5);
+        TrackPoint trackPointSecond = new TrackPoint(LocalDate.of(2021, 5, 5), 35.5, 115.5);
 
         activityVariant2.addTrackPoint(trackPointFirst);
         activityVariant2.addTrackPoint(trackPointSecond);
         activityDao.saveActivity(activityVariant2);
 
         Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(activityVariant2.getId());
-        assertEquals(2,anotherActivity.getTrackPoints().size());
-        assertEquals(trackPointFirst,anotherActivity.getTrackPoints().get(0).getTime());
+        assertEquals(2, anotherActivity.getTrackPoints().size());
+        assertEquals(trackPointFirst, anotherActivity.getTrackPoints().get(0).getTime());
 
         assertThat(anotherActivity.getTrackPoints())
                 .hasSize(2)
@@ -175,14 +175,14 @@ class ActivityDaoTest {
     }
 
     @Test
-    public void testAddTrackPoint() {
+    void testAddTrackPoint() {
 
         activityDao.saveActivity(activityVariant2);
 
         activityDao.addTrackPoint(activityVariant2.getId(), new TrackPoint(LocalDate.of(
-                2021, 6, 12),25.5, 95.5));
+                2021, 6, 12), 25.5, 95.5));
         Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(activityVariant2.getId());
-        assertEquals(1,anotherActivity.getTrackPoints().size());
+        assertEquals(1, anotherActivity.getTrackPoints().size());
     }
 
     @Test
@@ -222,15 +222,36 @@ class ActivityDaoTest {
 
 
     @Test
-    public void testActivityWithDetailsAttributes() {
+    void testActivityWithDetailsAttributes() {
 
         activityVariant1.setDistance(50);
         activityVariant1.setDuration(11000);
 
         activityDao.saveActivity(activityVariant1);
 
-       Activity anotherActivity =activityDao.findActivityById(activityVariant1.getId());
-       assertEquals(50,anotherActivity.getDistance());
+        Activity anotherActivity = activityDao.findActivityById(activityVariant1.getId());
+        assertEquals(50, anotherActivity.getDistance());
+    }
+
+
+    void testFindTrackPointCountByActivity() {
+        activityDao.saveActivity(activityVariant1);
+        List<Object[]> data = activityDao.findTrackPointCountByActivity();
+        assertEquals(1, data.size());
+        assertEquals("easy running", data.get(0)[1]);
+    }
+
+
+    void removeActivitiesByDateAndType() {
+        activityDao.saveActivity(activityVariant1);
+        activityDao.saveActivity(activityVariant2);
+        activityDao.saveActivity(activityVariant3);
+
+        activityDao.removeActivitiesByDateAndType(LocalDateTime.of(
+                2021, 5, 10, 9, 0),
+                ActivityType.BIKING);
+        List<Activity> activities = activityDao.listActivities();
+        assertEquals(1, activities.size());
     }
 }
 
