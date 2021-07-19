@@ -1,5 +1,8 @@
 package activitytracker;
 
+import javax.persistence.Entity;
+
+
 public class Coordinate {
 
     private double lat;
