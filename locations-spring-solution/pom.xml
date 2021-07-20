@@ -62,16 +62,18 @@
         </dependency>
         <dependency>
             <groupId>org.zalando</groupId>
-            <artifactId>problem</artifactId>
-            <version>0.24.0</version>
-            <scope>compile</scope>
+            <artifactId>problem-spring-web-starter</artifactId>
+            <version>0.26.2</version>
         </dependency>
         <dependency>
-            <groupId>org.zalando</groupId>
-            <artifactId>jackson-datatype-problem</artifactId>
-            <version>0.24.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.24</version>
+        </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>

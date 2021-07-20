@@ -24,10 +24,5 @@ public class LocationsSpringSolutionApplication {
         return new ModelMapper();
     }
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper().findAndRegisterModules();
-    }
-
 
 }

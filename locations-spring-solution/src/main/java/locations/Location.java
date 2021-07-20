@@ -1,57 +1,35 @@
 package locations;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "locations")
 public class Location {
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
+
+    @Column(name = "location_name")
    private String name;
+
+    @Column(name = "location_lat")
    private double lat;
+    @Column(name = "location_name")
    private double lon;
 
 
-    public Location(Long id, String name, double lat, double lon) {
-        this.id = id;
+    public Location(String name, double lat, double lon) {
         this.name = name;
         this.lat = lat;
         this.lon = lon;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getLat() {
-        return lat;
-    }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lat=" + lat +
-                ", lon=" + lon +
-                '}';
     }
 }
