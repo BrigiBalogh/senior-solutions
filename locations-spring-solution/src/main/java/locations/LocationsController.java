@@ -47,18 +47,8 @@ public class LocationsController {
         return new LocationsDto( locationsService.getLocationsOtherVariable(name));
     }*/
 
-    @GetMapping
-    public List<LocationDto> getLocations(@RequestParam Optional<String> name) {
-
-        return locationsService.getLocationsOtherVariable(name);
-    }
 
 
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public LocationDto getLocationById(@PathVariable("id") long id) {
-        return  locationsService.getLocationById(id);
-    }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity findLocationById(@PathVariable("id") long id) {
