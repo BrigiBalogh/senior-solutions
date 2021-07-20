@@ -2,29 +2,29 @@
 
 Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 
-* [X] Bevezetés a Spring Framework és Spring Boot használatába
-* [ ] Bevezetés a Spring Boot használatába
+* [] Bevezetés a Spring Framework és Spring Boot használatába
+* [x] Bevezetés a Spring Boot használatába
 * [X] Spring Beanek
 * [x] Konfiguráció Javaban
 * [x] Build és futtatás Mavennel
-* [ ] Build és futtatás Gradle használatával
-* [ ] Unit és integrációs tesztek
-* [ ] Developer Tools
-* [ ] Twelve Factor App
-* [ ] Bevezetés a Docker használatába
-* [ ] Java alkalmazások Dockerrel
-* [ ] Docker Layers
-* [ ] Feltöltés GIT repository-ba
-* [ ] REST webszolgáltatások - GET művelet
-* [ ] GET műveletek paraméterezése
-* [ ] REST webszolgáltatások POST és DELETE művelet
-* [ ] Státuszkódok és hibakezelés
-* [ ] Integrációs tesztelés
+* [] Build és futtatás Gradle használatával
+* [x] Unit és integrációs tesztek
+* [x] Developer Tools
+* [x] Twelve Factor App
+* [x]Bevezetés a Docker használatába
+* [x] Java alkalmazások Dockerrel
+* [x] Docker Layers
+* [x] Feltöltés GIT repository-ba
+* [x] REST webszolgáltatások - GET művelet
+* [x] GET műveletek paraméterezése
+* [x] REST webszolgáltatások POST és DELETE művelet
+* [x] Státuszkódok és hibakezelés
+* [x] Integrációs tesztelés
 * [ ] Swagger UI
-* [ ] Tesztelés Rest Assured használatával
-* [ ] Rest Assured séma validáció
-* [ ] Content Negotiation
-* [ ] Validáció
+* [x] Tesztelés Rest Assured használatával
+* [x] Rest Assured séma validáció
+* [x] Content Negotiation
+* [x]Validáció
 * [ ] Spring Boot konfiguráció
 * [ ] Spring Boot naplózás
 * [ ] Spring JdbcTemplate

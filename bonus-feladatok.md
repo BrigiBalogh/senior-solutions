@@ -1,6 +1,6 @@
 # Bónusz feladatok
 
-* [ ] Oltás
+* []Oltás
 * [ ] Minastirith - létező kódhoz kell unitteszteket írni
 * [ ] Matematikusok (validáció)
 * [ ] Terápia
