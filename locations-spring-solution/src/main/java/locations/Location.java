@@ -33,3 +33,5 @@ public class Location {
         this.lon = lon;
     }
 }
+
+/* docker run -d -e MYSQL_DATABASE=locations -e MYSQL_USER=locations -e MYSQL_PASSWORD=locations -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -p 3306:3306 --name locations-mariadb mariadb  */

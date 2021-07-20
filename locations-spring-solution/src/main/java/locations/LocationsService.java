@@ -33,7 +33,7 @@ public class LocationsService {
 
 
     public LocationDto findLocationByName(String name) {
-        return modelMapper.map(repository.findOne(name),LocationDto.class);
+        return modelMapper.map(repository.findByName(name),LocationDto.class);
     }
 
     public LocationDto findLocationById(long id) {
