@@ -50,15 +50,26 @@ public class LocationsController {
 
 
 
-    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity findLocationById(@PathVariable("id") long id) {
+  /*  @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity findLocationById1(@PathVariable("id") long id) {
         try {
             return ResponseEntity.ok(locationsService.findLocationById(id));
         } catch (IllegalArgumentException ex) {
             throw new LocationNotFoundException("Cannot found location", ex);
             //return ResponseEntity.notFound().build();
         }
+    }*/
+
+    public List<LocationDto> getLocations() {
+        return locationsService.getLocations();
     }
+
+
+    @GetMapping("/{id}")
+    public LocationDto findLocationById(@PathVariable("id") long id) {
+        return locationsService.findLocationById(id);
+    }
+
 
     public LocationDto findLocationByName(@RequestParam String name) {
         return locationsService.findLocationByName(name);

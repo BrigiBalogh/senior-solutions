@@ -23,7 +23,7 @@ public class Location {
 
     @Column(name = "location_lat")
    private double lat;
-    @Column(name = "location_name")
+    @Column(name = "location_lon")
    private double lon;
 
 

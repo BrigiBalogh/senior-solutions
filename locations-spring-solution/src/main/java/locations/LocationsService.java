@@ -2,8 +2,10 @@ package locations;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +20,20 @@ import java.util.stream.Collectors;
 @Service
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class LocationsService {
 
 
+    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
     private LocationsRepository repository;
-    private List<Location> locations;
+    private List<Location> locations = new ArrayList<>();
+
+   /* public LocationsService(ModelMapper modelMapper, LocationsRepository repository) {
+        this.modelMapper = modelMapper;
+        this.repository = repository;
+    }*/
 
     public List<LocationDto> getLocations() {
         return repository.findAll().stream()
@@ -37,7 +47,11 @@ public class LocationsService {
     }
 
     public LocationDto findLocationById(long id) {
-        return modelMapper.map(repository.findById(id), LocationDto.class);
+        Optional<Location> optLoc = repository.findById(id);
+        if (optLoc.isEmpty())
+            return null;
+        else
+            return modelMapper.map(optLoc.get(), LocationDto.class);
 
     }
 

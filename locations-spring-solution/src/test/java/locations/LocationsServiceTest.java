@@ -3,22 +3,34 @@ package locations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class LocationsServiceTest {
 
 
+    @Autowired
     LocationsService service;
 
     ModelMapper modelMapper = new ModelMapper();
 
+    @Autowired
+    private LocationsRepository locationsRepository;
+
     @BeforeEach
     void setUp() {
-        service = new LocationsService(modelMapper);
+        //service = new LocationsService(modelMapper, locationsRepository);
     }
 
 
@@ -34,7 +46,7 @@ class LocationsServiceTest {
 
     @Test
     void getLocationById() {
-        LocationDto result = service.getLocationById(1L);
+        LocationDto result = service.findLocationById(1L);
 
         assertThat(result).isNotNull()
                 .extracting(LocationDto::getName).isEqualTo("Budapest");
@@ -61,7 +73,7 @@ class LocationsServiceTest {
 
     @Test
     void getLocationByIdNotFound() {
-        Exception ex = assertThrows(LocationNotFoundException.class, () -> service.getLocationById(4L));
+        Exception ex = assertThrows(LocationNotFoundException.class, () -> service.findLocationById(4L));
         assertEquals("Location not found ", ex.getMessage());
     }
 

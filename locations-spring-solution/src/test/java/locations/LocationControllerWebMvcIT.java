@@ -13,12 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = LocationsController.class)
 public class LocationControllerWebMvcIT {
@@ -60,7 +58,7 @@ public class LocationControllerWebMvcIT {
 
     @Test
     void testGetLocationById() throws Exception {
-        when(locationsService.getLocationById(anyLong())).thenReturn(budapest);
+        when(locationsService.findLocationById(anyLong())).thenReturn(budapest);
 
 
         mockMvc.perform(get("/locations/id/1"))
@@ -104,7 +102,6 @@ public class LocationControllerWebMvcIT {
                         .content(createJSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name", equalTo("Funchal")));
-
     }
 
 
@@ -114,7 +111,7 @@ public class LocationControllerWebMvcIT {
         mockMvc.perform(
                 delete("/locations/1"))
                 .andExpect(status().isNoContent());
-        verify(locationsService.deleteLocationById(anyLong()));
+        verify(locationsService, atLeast(1)).deleteLocationById(anyLong());
 
     }
 }

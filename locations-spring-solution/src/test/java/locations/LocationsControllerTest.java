@@ -45,7 +45,7 @@ class LocationsControllerTest {
 
         when(service.getLocations()).thenReturn(locations);
 
-        List<LocationDto> result = controller.getLocations(Optional.empty());
+        List<LocationDto> result = controller.getLocations();
 
         assertThat(result)
                 .hasSize(3)
@@ -55,9 +55,9 @@ class LocationsControllerTest {
 
     @Test
     void testGetLocationById() {
-        when(service.getLocationById(anyLong())).thenReturn(budapest);
+        when(service.findLocationById(anyLong())).thenReturn(budapest);
 
-        LocationDto result =controller.getLocationById(1L);
+        LocationDto result =controller.findLocationById(1L);
 
         assertEquals("Budapest", result.getName());
     }

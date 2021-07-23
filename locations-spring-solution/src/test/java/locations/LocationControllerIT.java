@@ -3,6 +3,7 @@ package locations;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,7 @@ public class LocationControllerIT {
     @Test
     void testGetLocations() {
 
-        List<LocationDto> result = controller.getLocations(Optional.empty());
+        List<LocationDto> result = controller.getLocations();
 
         assertThat(result)
                 .hasSize(3)
@@ -38,7 +39,7 @@ public class LocationControllerIT {
     @Test
     void testGetLocationById() {
 
-        LocationDto result = controller.getLocationById(1L);
+      LocationDto result = controller.findLocationById(1L);
         assertEquals("Budapest", result.getName());
     }
 }
