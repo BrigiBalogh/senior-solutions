@@ -35,3 +35,10 @@ public class Location {
 }
 
 /* docker run -d -e MYSQL_DATABASE=locations -e MYSQL_USER=locations -e MYSQL_PASSWORD=locations -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -p 3306:3306 --name locations-mariadb mariadb  */
+
+/*  docker run -d -e MYSQL_DATABASE=locations -e MYSQL_USER=locations -e MYSQL_PASSWORD=locations -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -p 3308:3306 --name locations-net-mariadb mariadb
+*  */
+
+//docker network create --driver bridge locations-net
+
+
