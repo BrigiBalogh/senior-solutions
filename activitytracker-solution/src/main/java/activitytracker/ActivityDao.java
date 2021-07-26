@@ -100,7 +100,9 @@ public class ActivityDao {
 
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             List<Object[]> activityDatas = entityManager
-                    .createQuery("select count(t.activity) from TrackPoint t", Object[].class)
+                    .createQuery(
+                            "select a.description, count(t) from Activity a join fetch a.trackpoints t group by a.description "
+                            , Object[].class)
                     .getResultList();
             entityManager.close();
             return activityDatas;
