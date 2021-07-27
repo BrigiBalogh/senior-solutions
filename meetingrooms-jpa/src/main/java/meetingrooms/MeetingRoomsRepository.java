@@ -2,7 +2,7 @@ package meetingrooms;
 
 import java.util.List;
 
-public interface MeetingRoomsRepository {
+public interface MeetingRoomsRepository  {
 
 
     MeetingRoom save(String name, int width, int length);

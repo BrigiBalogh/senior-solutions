@@ -1,0 +1,46 @@
+###
+GET http://localhost:8080/locations/
+Accept: application/json
+
+###
+POST http://localhost:8080/api/movies
+Accept: application/json
+
+
+{
+  "title": "Titanic"
+
+}
+
+
+###
+GET http://localhost:8080/locations/1
+Accept: application/json
+
+###
+GET http://localhost:8080/locations/1
+Accept: application/xml
+
+###
+GET http://localhost:8080/api/movies
+Content-Type: application/json
+Accept: application/json
+
+###
+POST http://localhost:8080/api/movies
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Thor"
+
+}
+
+###
+POST http://localhost:8080/api/movies/3/rating
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rating": 5
+}
